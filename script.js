@@ -1,15 +1,12 @@
 "use strict";
 
+const button = document.querySelectorAll(".btn");
+
 const getComputerChoice = function () {
   let choice = Math.floor(Math.random() * 3);
   if (choice === 0) return "Rock";
   else if (choice === 1) return "Paper";
   else return "Scissor";
-};
-
-const getHumanChoice = function () {
-  let humanChoice = prompt("Enter choice");
-  return humanChoice.toLowerCase();
 };
 
 const playRound = function (humanChoice, computerChoice) {
@@ -38,19 +35,25 @@ const playRound = function (humanChoice, computerChoice) {
   return result;
 };
 
-const playGame = function () {
-  let humanScore = 0;
-  let computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
+
+const playGame = function (inp) {
+  let humanHand = inp.toLowerCase();
+  if (humanHand === "reset") {
+    humanScore = 0;
+    computerScore = 0;
+    return;
+  }
+  let computerHand = getComputerChoice().toLowerCase();
+
   let noWinner = 0;
   let result;
-  for (let i = 0; i < 5; i++) {
-    let computerHand = getComputerChoice().toLowerCase();
-    let humanHand = getHumanChoice();
-    result = playRound(humanHand, computerHand);
-    if (result === "player") humanScore++;
-    else if (result === "computer") computerScore++;
-    else noWinner++;
-  }
+
+  result = playRound(humanHand, computerHand);
+  if (result === "player") humanScore++;
+  else if (result === "computer") computerScore++;
+  else noWinner++;
 
   console.log(`Human ${humanScore}  \n Computer ${computerScore}`);
 
@@ -59,4 +62,8 @@ const playGame = function () {
   else console.log("draw");
 };
 
-playGame();
+button.forEach(function (button) {
+  button.addEventListener("click", function () {
+    playGame(button.textContent);
+  });
+});

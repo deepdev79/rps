@@ -3,10 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel="stylesheet" href="styles.css" />
     <title>RPS</title>
   </head>
   <body>
+    <h1>Welcome to Game</h1>
+    <h2>First one to 5 wins game</h2>
+
+    <div class="sec-1">
+      <p>Your hand</p>
+      <p>Computer hand</p>
+    </div>
+    <div class="hand">
+      <p class="player-hand"><img src="wait.png" alt="No Input" /></p>
+      <p class="comp-hand"><img src="wait.png" alt="No Input" /></p>
+    </div>
+    <div class="sec-2">
+      <p>Your Score</p>
+      <p>Computer Score</p>
+    </div>
+    <div class="score">
+      <p class="player-score"></p>
+      <p class="comp-score"></p>
+    </div>
+    <div class="options">
+      <button class="btn">Rock</button>
+      <button class="btn">Paper</button>
+      <button class="btn">Scissor</button>
+    </div>
+    <button class="btn">Reset</button>
+
     <script src="script.js"></script>
   </body>
 </html>

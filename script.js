@@ -66,7 +66,6 @@ const playGame = function (inp) {
   }
   let computerHand = getComputerChoice().toLowerCase();
   let result;
-  console.log(humanHand);
   dispHand.src = `${humanHand}.png`;
   compHand.src = `${computerHand}.png`;
 

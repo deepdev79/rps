@@ -7,6 +7,11 @@ h1,
   text-align: center;
 }
 
+.result {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .sec-1,
 .sec-2,
 .hand,

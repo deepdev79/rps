@@ -1,8 +1,11 @@
 "use strict";
 
 const button = document.querySelectorAll(".btn");
+const dispHand = document.querySelector(".player-hand");
+const compHand = document.querySelector(".comp-hand");
 const disPlayerScore = document.querySelector(".player-score");
 const disCompScore = document.querySelector(".comp-score");
+const dispResult = document.querySelector(".result");
 
 const getComputerChoice = function () {
   let choice = Math.floor(Math.random() * 3);
@@ -13,8 +16,6 @@ const getComputerChoice = function () {
 
 const playRound = function (humanChoice, computerChoice) {
   let result;
-  console.log(humanChoice);
-  console.log(computerChoice);
   switch (humanChoice) {
     case "rock":
       if (computerChoice === "rock") result = "draw";
@@ -39,17 +40,20 @@ const playRound = function (humanChoice, computerChoice) {
 
 let humanScore = 0;
 let computerScore = 0;
-let noWinner = 0;
 
 const reset = function () {
+  dispHand.src = "wait.png";
+  compHand.src = "wait.png";
+  dispResult.textContent = "First one to 5 wins game";
   humanScore = 0;
   computerScore = 0;
-  noWinner = 0;
+
   disCompScore.textContent = 0;
   disPlayerScore.textContent = 0;
   button.forEach(function (button) {
     if (button.textContent != "Reset") {
       button.disabled = false;
+      button.style.opacity = 1;
     }
   });
 };
@@ -62,6 +66,9 @@ const playGame = function (inp) {
   }
   let computerHand = getComputerChoice().toLowerCase();
   let result;
+  console.log(humanHand);
+  dispHand.src = `${humanHand}.png`;
+  compHand.src = `${computerHand}.png`;
 
   result = playRound(humanHand, computerHand);
   if (result === "player") {
@@ -70,18 +77,17 @@ const playGame = function (inp) {
   } else if (result === "computer") {
     computerScore++;
     disCompScore.textContent = computerScore;
-  } else noWinner++;
-
-  console.log(`Human ${humanScore}  \n Computer ${computerScore}`);
+  }
 
   if (humanScore === 5 || computerScore === 5) {
     button.forEach(function (button) {
       if (button.textContent != "Reset") {
         button.disabled = true;
+        button.style.opacity = 0.6;
       }
     });
-    if (humanScore === 5) console.log("Human wins GAME");
-    else if (computerScore === 5) console.log("Computer wins GAME");
+    if (humanScore === 5) dispResult.textContent = "Congrats 🥳 You win";
+    else if (computerScore === 5) dispResult.textContent = "😢 You lose";
   }
 };
 

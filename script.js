@@ -1,6 +1,8 @@
 "use strict";
 
 const button = document.querySelectorAll(".btn");
+const disPlayerScore = document.querySelector(".player-score");
+const disCompScore = document.querySelector(".comp-score");
 
 const getComputerChoice = function () {
   let choice = Math.floor(Math.random() * 3);
@@ -37,29 +39,50 @@ const playRound = function (humanChoice, computerChoice) {
 
 let humanScore = 0;
 let computerScore = 0;
+let noWinner = 0;
+
+const reset = function () {
+  humanScore = 0;
+  computerScore = 0;
+  noWinner = 0;
+  disCompScore.textContent = 0;
+  disPlayerScore.textContent = 0;
+  button.forEach(function (button) {
+    if (button.textContent != "Reset") {
+      button.disabled = false;
+    }
+  });
+};
 
 const playGame = function (inp) {
   let humanHand = inp.toLowerCase();
   if (humanHand === "reset") {
-    humanScore = 0;
-    computerScore = 0;
+    reset();
     return;
   }
   let computerHand = getComputerChoice().toLowerCase();
-
-  let noWinner = 0;
   let result;
 
   result = playRound(humanHand, computerHand);
-  if (result === "player") humanScore++;
-  else if (result === "computer") computerScore++;
-  else noWinner++;
+  if (result === "player") {
+    humanScore++;
+    disPlayerScore.textContent = humanScore;
+  } else if (result === "computer") {
+    computerScore++;
+    disCompScore.textContent = computerScore;
+  } else noWinner++;
 
   console.log(`Human ${humanScore}  \n Computer ${computerScore}`);
 
-  if (humanScore > computerScore) console.log("Human wins");
-  else if (computerScore > humanScore) console.log("Computer wins");
-  else console.log("draw");
+  if (humanScore === 5 || computerScore === 5) {
+    button.forEach(function (button) {
+      if (button.textContent != "Reset") {
+        button.disabled = true;
+      }
+    });
+    if (humanScore === 5) console.log("Human wins GAME");
+    else if (computerScore === 5) console.log("Computer wins GAME");
+  }
 };
 
 button.forEach(function (button) {
